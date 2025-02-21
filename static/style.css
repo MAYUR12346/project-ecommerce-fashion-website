@@ -59,6 +59,56 @@
     
 }
 
+/* search bar */
+
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #2a2a2a;
+    border-radius: 30px;
+    border: 1px solid #444;
+    transition: all 0.3s ease;
+}
+
+.search-bar:hover {
+    border-color: #666;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 15px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+.search-button {
+    background: #f4f1f1;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.search-button:hover {
+    background: #e6c200;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    fill: #000;
+}
 
 
 /* Secondary Navigation */
@@ -150,7 +200,7 @@ footer {
 }
 
 .subscribe-btn {
-    background: #FFD700;
+    background: white;
     color: #000000;
     padding: 12px 20px;
     border: none;
@@ -162,7 +212,7 @@ footer {
 }
 
 .subscribe-btn:hover {
-    background: #e6c200;
+    background: #C4877A;
 }
 
 .footer-bottom {
@@ -416,6 +466,7 @@ button:hover {
     gap: 20px;
     padding: 20px;
     flex-wrap: wrap;
+    margin-left: 50px;
 }
 
 /* Original CSS remains the same */
@@ -488,7 +539,7 @@ img {
 .add-to-cart {
     width: 100%;
     padding: 8px;
-    background: #FFD814;
+    background: #C4877A
     border: 1px solid #FCD200;
     border-radius: 4px;
     cursor: pointer;
@@ -496,7 +547,7 @@ img {
 }
 
 .add-to-cart:hover {
-    background: #F7CA00;
+    background: #C4877A;
 }
 
 
