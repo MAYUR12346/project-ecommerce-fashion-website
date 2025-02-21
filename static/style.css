@@ -8,26 +8,32 @@
 
 /* Top Navigation */
 .top-nav {
-    padding: 15px 0;
+    padding: 5px 0;
     border-bottom: 1px solid #080707;
     background-color: black;
+    
 }
 
 .nav-container {
     max-width: 1200px;
-    margin: 5px;
+    margin: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     
     
 }
+.logop {
+    width: 50px; /* Adjust based on your logo size */
+    margin-right: 5px;
+}
 
 .logo {
     font-size: 20px;
     font-weight: bold;
-    margin-right: 40px;
+    margin-left: auto;
     color: white;
+
 }
 
 .nav-links {
@@ -513,4 +519,92 @@ button:hover {
 
 .free-delivery {
     font-weight: bold;
+}
+
+/* //dropdown */
+
+.account-dropdown {
+    position: relative;
+    margin-left: auto; /* Align to right side */
+}
+
+.account-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 15px;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    z-index: 1001;
+}
+
+.account-trigger:hover {
+    color: #f90;
+    outline: 1px solid #ddd;
+}
+
+.dropdown-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0; /* Align dropdown to right */
+    width: 300px;
+    z-index: 1000;
+    margin-top: -1px;
+}
+
+.account-dropdown:hover .dropdown-container {
+    display: block;
+}
+
+.dropdown-main {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-top: 10px;
+}
+
+.dropdown-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.dropdown-block {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-block:last-child {
+    border-bottom: none;
+}
+
+.dropdown-block h4 {
+    margin: 0 0 12px 0;
+    color: #666;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.dropdown-block a {
+    display: block;
+    padding: 8px 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dropdown-block a:hover {
+    color: #f90;
+    text-decoration: underline;
+}
+
+.highlight-link {
+    color: #06c;
+    text-decoration: none;
+}
+
+.highlight-link:hover {
+    text-decoration: underline;
 }

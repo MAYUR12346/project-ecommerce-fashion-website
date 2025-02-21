@@ -21,6 +21,7 @@
     <!-- Top Navigation -->
     <nav class="top-nav">
         <div class="nav-container">
+            <img src="{{url_for('static',filename='images/logo.png')}}" alt=" Fashion Logo" class="logop">
             <div class="logo">FASHION FINDS</div>
             
             <div class="nav-icons">
@@ -63,10 +64,6 @@
             </div>
 
             <div class="nav-icons">
-                <a href="account.html" class="nav-icon-item">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
-                </a>
                 <a href="wishlist.html" class="nav-icon-item">
                     <i class="fas fa-heart"></i>
                     <span>Wishlist</span>
@@ -75,8 +72,40 @@
                     <i class="fas fa-shopping-bag"></i>
                     <span>Cart</span>
                 </a>
-            </div>
-        </div>
+                <div class="account-dropdown">
+                    <a href="account.html" class="account-trigger">
+                        <i class="fas fa-user"></i>
+                        <span>Account</span>
+                    </a>
+                    <div class="dropdown-container">
+                        <div class="dropdown-main">
+                            <div class="dropdown-header">
+                                <span>New customer? <a href="#" class="highlight-link">Start here.</a></span>
+                            </div>
+                
+                            <div class="dropdown-block">
+                                <h4>Your Lists</h4>
+                                <a href="#">Create a Wish List</a>
+                                <a href="#">Wish from Any Website</a>
+                                <a href="#">Baby Wishlist</a>
+                                <a href="#">Discover Your Style</a>
+                                <a href="#">Explore Showroom</a>
+                            </div>
+                
+                            <div class="dropdown-block">
+                                <h4>Your Account</h4>
+                                <a href="#">Your Account</a>
+                                <a href="#">Your Orders</a>
+                                <a href="#">Your Wish List</a>
+                                <a href="#">Your Recommendations</a>
+                                <a href="#">Your Seller Account</a>
+                                <a href="#">Manage Your Content and Devices</a>
+                                <a href="#">Register for a free Business Account</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
     </nav>
 
 </header>  
@@ -195,9 +224,8 @@
     <!-- First Product -->
     <div class="cart-container">
         <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
+            <img src="{{url_for('static',filename='images/contenar img7.png')}}" class="product-image" alt="Shirt Image">
             <div class="product-details">
-                <div class="sponsored">ALT </div>
                 <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
                 <div class="price-section">
                     <span class="discounted-price">₹567</span>
@@ -219,7 +247,6 @@
         <div class="cart-item">
             <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
             <div class="product-details">
-                <div class="sponsored">ALT </div>
                 <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
                 <div class="price-section">
                     <span class="discounted-price">₹567</span>
@@ -235,188 +262,10 @@
             </div>
         </div>
     </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img9.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="sponsored">ALT </div>
-                <div class="product-title">Hopscotch Boys Cotton Blend Formal Set</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹1,172</span>
-                    <span class="original-price">M.R.P: ₹1,379</span>
-                    <span class="discount-percent">(15% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,2 Feb on orders over ₹1,172 fulfilled by Amazon
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    
-
-
-    
 </div>
+    
 
    
- 
-
-    
-
-
 
         <!-- Footer Section -->
         <footer class="main-footer">
