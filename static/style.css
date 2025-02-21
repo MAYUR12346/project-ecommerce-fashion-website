@@ -132,24 +132,12 @@
 
 
 /* Footer Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
 
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff; /* Main page background */
-}
 
 footer {
     background-color: #111;
     color: #ffffff;
-    padding: 40px 20px 20px;
+    padding: 100px 20px 20px;
     margin-top: auto;
     width: 100%;
 }
@@ -248,16 +236,7 @@ footer {
     color: #ffffff;
 }
 
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-    }
-}
+
 /* Responsive Footer */
 @media (max-width: 768px) {
     .footer-container {
@@ -471,10 +450,9 @@ button:hover {
 
 /* Original CSS remains the same */
 .products-wrapper {
-    display: flex;
     gap: 20px;
-    padding: 20px;
-    flex-wrap: wrap;
+    
+    
 }
 
 /* Original CSS remains the same */
