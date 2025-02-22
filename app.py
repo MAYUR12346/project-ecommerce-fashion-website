@@ -44,6 +44,16 @@ def cart():
 def Account():
     return render_template('Account.html')
 
+@app.route('/products')
+def products():
+    return render_template('products.html')
+
+@app.route('/productdetail')
+def productdetail():
+    return render_template('product detail.html')    
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 

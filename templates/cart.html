@@ -1,0 +1,74 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        .cart-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .total-section {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 1.2rem;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1>Your Shopping Cart</h1>
+        <div id="cartItems"></div>
+        <div class="total-section">
+            Total: ¥<span id="cartTotal">0</span>
+        </div>
+    </div>
+
+    <script>
+        // Get cart from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+
+        function displayCart() {
+            if(cart.length === 0) {
+                cartItems.innerHTML = `<div class="empty-cart">Your cart is empty</div>`;
+                return;
+            }
+
+            let total = 0;
+            cartItems.innerHTML = cart.map(item => {
+                total += item.price;
+                return `
+                    <div class="cart-item">
+                        <div>${item.name}</div>
+                        <div>¥${item.price}</div>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = total;
+        }
+
+        // Initial display
+        displayCart();
+    </script>
+</body>
+</html>

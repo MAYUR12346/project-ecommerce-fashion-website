@@ -4,558 +4,961 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FASHION FINDS</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-        <!-- Add this line below existing meta tags -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    
+        .nav-container {
+            background: #000000;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            min-width: 120px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            background: #333333;
+        }
+
+        .nav-item i {
+            font-size: 16px;
+            color: white;
+        }
+
+        .nav-item span {
+            font-size: 14px;
+        }
+
+        .search-bar {
+            width: 280px; /* Fixed width */
+            position: relative;
+            margin: 0 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 25px;
+            border: 1px solid #444444;
+            border-radius: 30px;
+            font-size: 14px;
+            padding-right: 45px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .search-input::placeholder {
+            color: #888888;
+        }
+
+        .search-button {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #888888;
+            cursor: pointer;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1a1a1a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 6px;
+            min-width: 240px;
+            padding: 12px 0;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            color: white;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: #333333;
+        }
+
+        .dropdown-divider {
+            border-top: 1px solid #444444;
+            margin: 8px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .main-nav {
+                display: none;
+            }
+
+            .search-bar {
+                width: 200px;
+                margin: 0 10px;
+            }
+
+            .nav-item span {
+                display: none;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 10px 15px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin: 0;
+            }
+
+            .nav-actions {
+                gap: 15px;
+            }
+
+            .logo {
+                display: none;
+            }
+        }
+
+        /* slader contener   */
+
+        .responsive-slider {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            background-color: aquamarine;
+        }
+
+        .slider-container {
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
+        }
+
+        .slider-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: #ffffff;
+            transform: scale(1.2);
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            color: #333;
+            padding: 1.2vw;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow-btn:hover {
+            background: #ffffff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 2%;
+        }
+
+        .next-btn {
+            right: 2%;
+        }
+
+        /* Mobile First Approach */
+        @media (min-width: 768px) {
+            .slider-container {
+                padding-top: 45%; /* Adjust aspect ratio for tablets */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .slider-container {
+                padding-top: 35%; /* Adjust aspect ratio for desktops */
+            }
+        }
+
+        @media (max-width: 767px) {
+            .slider-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .arrow-btn {
+                padding: 3vw;
+                font-size: 3vw;
+            }
+
+            .slider-controls {
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-container {
+                padding-top: 75%; /* Taller aspect ratio for mobile */
+            }
+
+            .arrow-btn {
+                padding: 4vw;
+                font-size: 4vw;
+            }
+        }
+
+
+
+        /* 1st contener code */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            flex: 1 1 200px;
+            min-width: 200px;
+            max-width: 280px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .brand-name {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .offer-text {
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .view-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #2d3436;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background: #404a4d;
+        }
+
+        @media (max-width: 1200px) {
+            .card {
+                flex: 1 1 180px;
+                min-width: 180px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .card {
+                flex: 1 1 220px;
+                max-width: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 200px;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card {
+                flex: 1 1 100%;
+                max-width: 400px;
+            }
+        }
+
+
+        /* 2nd container */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .product-card {
+            width: 300px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .price-section {
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #666;
+            margin-left: 10px;
+        }
+
+        .discount {
+            color: #00c853;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: #0056b3;
+        }
+
+        .cart-section {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                width: 100%;
+            }
+            .cart-section {
+                position: static;
+                width: 100%;
+                margin: 20px;
+            }
+        }
+
+        /* footer section */
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .site-footer {
+            background: #2d3436;
+            color: white;
+            padding: 40px 0 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section {
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #dfe6e9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .social-link:hover {
+            color: #007bff;
+            transform: translateY(-2px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-input {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .subscribe-btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subscribe-btn:hover {
+            background: #0056b3;
+        }
+
+        .footer-bottom {
+            background: #1a1a1a;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 10px;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 1.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-media {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .subscribe-btn {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-
-
-    <header>
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <div class="nav-container">
-            <img src="{{url_for('static',filename='images/logo.png')}}" alt=" Fashion Logo" class="logop">
+    <div class="nav-container">
+        <nav class="navbar">
             <div class="logo">FASHION FINDS</div>
             
-            <div class="nav-icons">
-                <a href="index.html" class="nav-icon-item">
-                    <i class="fa fa-home"></i>
+            <div class="main-nav">
+                <div class="nav-item">
+                    <i class="fas fa-home"></i>
                     <span>Home</span>
-                </a>
-            
-                <a href="men.html" class="nav-icon-item">
-                    <i class=" fas fa-male men"></i>
-                    <div>Men</div>
-                </a>
-                <a href="kids.html" class="nav-icon-item">
-                    <i class=" fas fa-child kids"></i>
-                    <div>Kids</div>
-
-                </a>
-                <a href="women.html" class="nav-icon-item">
-                    <i class=" fas fa-female women"></i>
-                    <div>Women</div>
-                </a>
-                
-                <a href="Accessories.html" class="nav-icon-item">
-                    <i class="fas fa-shopping-bag"></i>
-                    <div>Accessories</div>
-                </a>
-                
-                <a href="Shoes.html" class="nav-icon-item">
-                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-male"></i>
+                    <span>Men</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-child"></i>
+                    <span>Kids</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-female"></i>
+                    <span>Women</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span>Accessories</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-shoe-prints"></i>
                     <span>Shoes</span>
-                </a>
-                <br>
-                
-            </div>
-            
-            <div class="search-bar d-flex align-items-center">
-                <div class="search-container">
-                    <div class="search-bar">
-                        <input type="text" 
-                               class="search-input" 
-                               placeholder="Search products, brands, and categories...">
-                        <button class="search-button">
-                            <svg class="search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                            </svg>
-                        </button>
-                    </div>
                 </div>
             </div>
 
-            <div class="nav-icons">
-                <a href="wishlist.html" class="nav-icon-item">
-                    <i class="fas fa-heart"></i>
+            <div class="search-bar">
+                <input type="text" placeholder="Search products, brands, and more..." class="search-input">
+                <button class="search-button"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-actions">
+                <div class="nav-item">
+                    <i class="far fa-heart"></i>
                     <span>Wishlist</span>
-                </a>
-                <a href="cart.html" class="nav-icon-item">
-                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-shopping-cart"></i>
                     <span>Cart</span>
-                </a>
-                <div class="account-dropdown">
-                    <a href="account.html" class="account-trigger">
-                        <i class="fas fa-user"></i>
+                </div>
+                <div class="dropdown">
+                    <div class="nav-item">
+                        <i class="far fa-user"></i>
                         <span>Account</span>
-                    </a>
-                    <div class="dropdown-container">
-                        <div class="dropdown-main">
-                            <div class="dropdown-header">
-                                <span>New customer? <a href="#" class="highlight-link">Start here.</a></span>
-                            </div>
-                
-                            <div class="dropdown-block">
-                                <h4>Your Lists</h4>
-                                <a href="#">Create a Wish List</a>
-                                <a href="#">Wish from Any Website</a>
-                                <a href="#">Baby Wishlist</a>
-                                <a href="#">Discover Your Style</a>
-                                <a href="#">Explore Showroom</a>
-                            </div>
-                
-                            <div class="dropdown-block">
-                                <h4>Your Account</h4>
-                                <a href="#">Your Account</a>
-                                <a href="#">Your Orders</a>
-                                <a href="#">Your Wish List</a>
-                                <a href="#">Your Recommendations</a>
-                                <a href="#">Your Seller Account</a>
-                                <a href="#">Manage Your Content and Devices</a>
-                                <a href="#">Register for a free Business Account</a>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="dropdown-content">
+                        <div class="dropdown-item">Your Lists</div>
+                        <div class="dropdown-item">Create a Wish List</div>
+                        <div class="dropdown-item">Wish from Any Website</div>
+                        <div class="dropdown-item">Baby Wishlist</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item">Discover Your Style</div>
+                        <div class="dropdown-item">Explore Showroom</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item">Your Account</div>
+                        <div class="dropdown-item">Your Orders</div>
+                        <div class="dropdown-item">Your Wish List</div>
+                        <div class="dropdown-item">Your Recommendations</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item">Manage Your Content</div>
+                        <div class="dropdown-item">Register Business Account</div>
                     </div>
                 </div>
-                
-    </nav>
-
-</header>  
-
-<div class="a-carousel-row a-carousel-has-buttons">
-    <div class="a-row">
-        <div class="a-carousel-slide">
-            <img src= "{{url_for('static',filename='images/slaider img1.png')}}" alt="Slide 1">
-        </div>
-        <div class="a-carousel-slide">
-            <img src="{{url_for('static',filename='images/slaider img2.png')}}" alt="Slide 2">
-        </div>
-        <div class="a-carousel-slide">
-            <img src="{{url_for('static',filename='images/slaider img4.png')}}" alt="Slide 3">
-        </div>
+            </div>
+        </nav>
     </div>
-    
-    <div class="a-carousel-overlay-buttons">
-        <div class="a-carousel-controls">
-            <button class="a-carousel-rounded-buttons prev-btn">❮</button>
-            <button class="a-carousel-rounded-buttons next-btn">❯</button>
+
+
+    <!-- slader containers     -->
+
+    <section class="responsive-slider">
+        <div class="slider-container">
+            <div class="slider-track">
+                <div class="slide">
+                    <img src="{{url_for('static',filename='images/slaider img1.png')}}" alt="Nature" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="{{url_for('static',filename='images/slaider img2.png')}}" alt="Mountain" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="{{url_for('static',filename='images/slaider img4.png')}}" alt="Ocean" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="{{url_for('static',filename='images/slaider img2.png')}}" alt="Forest" loading="lazy">
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+        <button class="arrow-btn prev-btn" aria-label="Previous slide">◀</button>
+        <button class="arrow-btn next-btn" aria-label="Next slide">▶</button>
+        <div class="slider-controls"></div>
+    </section>    
+
+
+<!-- 1st contener -->
 
 <div class="container">
-    <div class="card" onclick="showDetails(0)">
-        <img src="{{url_for('static',filename='images/contenar img1.png')}}" alt="Bedsheets">
-        <h9>Women's Hoodie Jacket</h9>
-        <p>Starting ₹749</p>
+    <!-- Card 1 -->
+    <div class="card">
+        <div class="card-image">
+            <img src="{{url_for('static',filename='images/contenar img5.png')}}" alt="Product">
+        </div>
+        <div class="card-content">
+            <div class="brand-name">DEELMO</div>
+            <div class="offer-text">Up to 60% Off</div>
+            <button class="view-btn" onclick="window.location.href='products.html?brand=deelmo'">View Offer</button>
+        </div>
     </div>
-    <div class="card" onclick="showDetails(1)">
-        <img src="{{url_for('static',filename='images/contenar img2.png')}}" alt="Clothing">
-        <h9>Round Neck Sweatshirt</h9>
-        <p>Up to 60% Off</p>
+
+    <!-- Card 2 -->
+    <div class="card">
+        <div class="card-image">
+            <img src="{{url_for('static',filename='images/contenar img4.png')}}" alt="Product">
+        </div>
+        <div class="card-content">
+            <div class="brand-name">PUMA</div>
+            <div class="offer-text">Up to 50% Off</div>
+            <button class="view-btn" onclick="window.location.href='products.html?brand=deelmo'">View Offer</button>
+        </div>
     </div>
-    <div class="card" onclick="showDetails(2)">
-        <img src="{{url_for('static',filename='images/contenar img3.png')}}" alt="Helmets">
-        <h9>Brand - Symbol</h9>
-        <p>Up to 60% Off</p>
+
+    <!-- Card 3 -->
+    <div class="card">
+        <div class="card-image">
+            <img src="{{url_for('static',filename='images/contenar img3.png')}}" alt="Product">
+        </div>
+        <div class="card-content">
+            <div class="brand-name">ADIDAS</div>
+            <div class="offer-text">Up to 55% Off</div>
+            <button class="view-btn" onclick="window.location.href='products.html?brand=deelmo'">View Offer</button>
+        </div>
     </div>
-    <div class="card" onclick="showDetails(3)">
-        <img src="{{url_for('static',filename='images/contenar img4.png')}}" alt="Ethnic Wear">
-        <h9>DEELMO</h9>
-        <p>Explore More</p>
+
+    <!-- Card 4 -->
+    <div class="card">
+        <div class="card-image">
+            <img src="{{url_for('static',filename='images/contenar img2.png')}}" alt="Product">
+        </div>
+        <div class="card-content">
+            <div class="brand-name">NIKE</div>
+            <div class="offer-text">Up to 65% Off</div>
+            <button class="view-btn" onclick="window.location.href='products.html?brand=deelmo'">View Offer</button>
+        </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+        <div class="card-image">
+            <img src="{{url_for('static',filename='images/contenar img1.png')}}" alt="Product">
+        </div>
+        <div class="card-content">
+            <div class="brand-name">ZARA</div>
+            <div class="offer-text">Up to 70% Off</div>
+            <button class="view-btn" onclick="window.location.href='products.html?brand=deelmo'">View Offer</button>
+        </div>
     </div>
 </div>
 
-<div id="details" class="hidden">
-    <button onclick="hideDetails()">Back</button>
-    <h2 id="category-title"></h2>
-    <ul id="details-list"></ul>
-</div>
+<!-- 2nd contener -->
 
-
-<!-- secode product -->
-<div class="products-wrapper">
-    <!-- Left Container -->
-    <div class="product-container">
-        <div class="image-section">
-            <img src="{{url_for('static',filename='images/contenar img4.png')}}" alt="Traditional Bandhgala Suit">  
+<div class="container">
+    <!-- Product Card 1 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{url_for('static',filename='images/contenar img4.png')}}" alt="Men Shirt" style="width:100%;height:100%;object-fit:cover;">
         </div>
-
-        <div class="product-details">
-            <h2 class="product-title">Men shirt</h2>
-
-            <div class="price-section">
-                <span class="current-price">₹749</span>
-                <span class="original-price">M.R.P: ₹999</span>
-                <span class="discount">(42% off)</span>
-            </div>
-            <button class="add-to-cart">Add to cart</button>
+        <h3 class="product-title">Men Slim Fit Printed Full Sieve</h3>
+        <div class="price-section">
+            <span class="current-price">₹749</span>
+            <span class="original-price">₹3999</span>
+            <span class="discount">42% off</span>
         </div>
+        <button class="add-to-cart" onclick="addToCart('Men Shirt', 15)">Add to Cart</button>
     </div>
 
-    <div class="product-container">
-        <div class="image-section">
-            <img src="{{url_for('static',filename='images/contenar img5.png')}}" alt="Traditional Bandhgala Suit">  
+    <!-- Product Card 2 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{url_for('static',filename='images/contenar img5.png')}}" alt="Formal Set" style="width:100%;height:100%;object-fit:cover;">
         </div>
-
-        <div class="product-details">
-            <h2 class="product-title">Men Slim Fit Printed Full Sleeve Shirt</h2>
-
-            <div class="price-section">
-                <span class="current-price">₹1009</span>
-                <span class="original-price">M.R.P: ₹2009</span>
-                <span class="discount">(50% off)</span>
-            </div>
-            <button class="add-to-cart">Add to cart</button>
+        <h3 class="product-title">Hopscotch Boys Cotton Blend Formal Set</h3>
+        <div class="price-section">
+            <span class="current-price">₹1009</span>
+            <span class="original-price">₹12009</span>
+            <span class="discount">60% off</span>
         </div>
+        <button class="add-to-cart" onclick="addToCart('Formal Set', 14)">Add to Cart</button>
     </div>
 
-    <div class="product-container">
-        <div class="image-section">
-            <img src="{{url_for('static',filename='images/contenar img6.png')}}" alt="Traditional Bandhgala Suit">  
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{url_for('static',filename='images/contenar img6.png')}}" alt="Formal Set" style="width:100%;height:100%;object-fit:cover;">
         </div>
-
-        <div class="product-details">
-            <h2 class="product-title">Hopscotch Boys Cotton Blend Formal Set</h2>
-
-            <div class="price-section">
-                <span class="current-price">₹1009</span>
-                <span class="original-price">M.R.P: ₹1709</span>
-                <span class="discount">(10% off)</span>
-            </div>
-            <button class="add-to-cart">Add to cart</button>
+        <h3 class="product-title">Hopscotch Boys Cotton Blend Formal Set</h3>
+        <div class="price-section">
+            <span class="current-price">₹1009</span>
+            <span class="original-price">₹12009</span>
+            <span class="discount">60% off</span>
         </div>
+        <button class="add-to-cart" onclick="addToCart('Formal Set', 13)">Add to Cart</button>
     </div>
 
-    <div class="product-container">
-        <div class="image-section">
-            <img src="{{url_for('static',filename='images/contenar img7.png')}}" alt="Traditional Bandhgala Suit">  
-        </div>
-
-        <div class="product-details">
-            <h2 class="product-title">Boys Cotton Track Suit</h2>
-
-            <div class="price-section">
-                <span class="current-price">₹809</span>
-                <span class="original-price">M.R.P: ₹2009</span>
-                <span class="discount">(60% off)</span>
-            </div>
-            <button class="add-to-cart">Add to cart</button>
-        </div>
-    </div>
-
-    <!-- Original Right Container -->
-
-  <!-- thred bar -->
-
-
-<div class="cart-grid">
-    <!-- First Product -->
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img7.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Second Product -->
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img8.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Men Slim Fit Printed Full Sleeve</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img9.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Cotton Clothing Sets for Baby Boys & Baby Girls Kids Clothes </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹567</span>
-                    <span class="original-price">M.R.P: ₹4,549</span>
-                    <span class="discount-percent">(75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,6 april on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img10.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Boy's & Girl's Cotton Round Neck Sweatshirt</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹599</span>
-                    <span class="original-price">M.R.P: ₹2,299</span>
-                    <span class="discount-percent">(-80% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Tue,19 Feb on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img11.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">DHRUVI TRENDZ Saree | Women Saree | Cotton Silk Saree </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹349</span>
-                    <span class="original-price">M.R.P: ₹1,999</span>
-                    <span class="discount-percent">(-83% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Monday, 24 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img12.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Nermosa Women Cotton Block Printed Kurta </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹699</span>
-                    <span class="original-price">M.R.P: ₹4,999</span>
-                    <span class="discount-percent">(-86% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Monday, 25 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img13.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">TRASE Women's Ballet Flats With Soft Formal Wear </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹799</span>
-                    <span class="original-price">M.R.P: ₹1,799</span>
-                    <span class="discount-percent">(-56% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Monday, 12 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img14.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Yashika Women's Trendy Banarasi Kanjivaram Navy Color Art Silk Saree </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹449</span>
-                    <span class="original-price">M.R.P: ₹1,799</span>
-                    <span class="discount-percent">(-75% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Sunday, 23 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img18.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Peter England Men's Polyester Blend Regular Business Suit Pants Set </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹5,999</span>
-                    <span class="original-price">M.R.P: ₹7,799</span>
-                    <span class="discount-percent">(-45% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Sunday, 23 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img17.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">MINAAR CREATIONS Classic Mens Blazer Suit Jacket </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹2,099</span>
-                    <span class="original-price">M.R.P: ₹5,580</span>
-                    <span class="discount-percent">(-62% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Wednesday, 26 February.  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img16.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">Mehrang Track Pant for Men || Joggers for Men for Running </div>
-                <div class="price-section">
-                    <span class="discounted-price">₹375</span>
-                    <span class="original-price">M.R.P: ₹2,999</span>
-                    <span class="discount-percent">(-87% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Monday, 4 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-container">
-        <div class="cart-item">
-            <img src="{{url_for('static',filename='images/contenar img15.png')}}" class="product-image" alt="Shirt Image">
-            <div class="product-details">
-                <div class="product-title">TRASE Women's Boots | Faux Leather, Trendy, Comfortable,</div>
-                <div class="price-section">
-                    <span class="discounted-price">₹999</span>
-                    <span class="original-price">M.R.P: ₹1,999</span>
-                    <span class="discount-percent">(-70% off)</span>
-                </div>
-                <div class="color-options" onclick="showColorOptions()">
-                    
-                </div>
-                <div class="delivery-message">
-                    <span class="free-delivery">FREE delivery</span> Sunday, 2 February  on orders over ₹4,549 fulfilled by FASHION FINDS
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
     
 
-
-
-   
-
-<!-- Footer Section -->
-
-
-
-<footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>CUSTOMER SERVICE</h3>
-            <ul class="footer-links">
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Shipping</a></li>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">Size Guide</a></li>
-            </ul>
+    <!-- Product Card 3 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="{{url_for('static',filename='images/contenar img7.png')}}" alt="Track Suit" style="width:100%;height:100%;object-fit:cover;">
         </div>
-
-        <div class="footer-section">
-            <h3>COMPANY</h3>
-            <ul class="footer-links">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Sustainability</a></li>
-                <li><a href="#">Press</a></li>
-                <li><a href="#">Affiliates</a></li>
-            </ul>
+        <h3 class="product-title">Boys Cotton Track Suit</h3>
+        <div class="price-section">
+            <span class="current-price">₹809</span>
+            <span class="original-price">₹3099</span>
+            <span class="discount">60% off</span>
         </div>
+        <button class="add-to-cart" onclick="addToCart('Track Suit', 12)">Add to Cart</button>
+    </div>
+</div>
 
-        <div class="footer-section">
-            <h3>CONNECT WITH US</h3>
-            <ul class="footer-links">
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Pinterest</a></li>
-            </ul>
-        </div>
+<!-- Cart Section -->
+<div class="cart-section">
+    <h2>Shopping Cart (<span id="cartCount">0</span>)</h2>
+    <div id="cartItems"></div>
+    <p>Total: ¥<span id="cartTotal">0</span></p>
+</div>
 
-        <div class="footer-section">
-            <h3>NEWSLETTER</h3>
-            <div class="newsletter">
-                <input type="email" placeholder="Enter your email">
-                <button class="subscribe-btn">SUBSCRIBE</button>
+
+<!-- <footer> section -->
+
+    <main>
+        <!-- Your main content here -->
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-media">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Pinterest">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                </div>
+                
+                <div class="newsletter">
+                    <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+                        <input type="email" class="newsletter-input" 
+                               placeholder="Enter your email" required>
+                        <button type="submit" class="subscribe-btn">
+                            <i class="fas fa-envelope"></i>
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer-bottom">
-        <div class="copyright">
-            © 2024 WOMFASHION. All rights reserved.
+        <div class="footer-bottom">
+            <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+            <div class="payment-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-paypal"></i>
+            </div>
         </div>
-        <div class="legal-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Cookie Settings</a>
-        </div>
-    </div>
-</footer>
-       
-        <script src="{{url_for('static',filename='app.js')}}"></script>
+    </footer>
+
+
+
+
+    <script src="{{url_for('static',filename='app.js')}}"></script>
 </body>
 </html>

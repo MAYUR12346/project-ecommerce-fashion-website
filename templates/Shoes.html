@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 30px 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 160px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            object-fit: cover;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #333;
+            line-height: 1.3;
+            min-height: 40px;
+        }
+
+        .price-section {
+            margin-bottom: 8px;
+        }
+
+        .current-price {
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #666;
+            margin-left: 8px;
+            font-size: 0.8rem;
+        }
+
+        .discount {
+            color: #00c853;
+            font-weight: bold;
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+
+        .delivery-info {
+            color: #666;
+            font-size: 0.8rem;
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .fulfillment {
+            color: #007bff;
+            font-size: 0.75rem;
+            margin-top: auto;
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 1199px) and (min-width: 992px) {
+            .container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="productContainer"></div>
+
+    <script>
+        // Product API Class
+        class ProductAPI {
+            constructor() {
+                this.products = JSON.parse(localStorage.getItem('products')) || [];
+                this.currentId = this.products.length > 0 
+                    ? Math.max(...this.products.map(p => p.id)) + 1 
+                    : 1;
+            }
+
+            getAllProducts() {
+                return this.products;
+            }
+
+            getProduct(id) {
+                return this.products.find(p => p.id === id);
+            }
+
+            addProduct(product) {
+                const newProduct = { ...product, id: this.currentId++ };
+                this.products.push(newProduct);
+                this._saveToLocalStorage();
+                return newProduct;
+            }
+
+            updateProduct(id, updatedProduct) {
+                const index = this.products.findIndex(p => p.id === id);
+                if(index !== -1) {
+                    this.products[index] = { ...this.products[index], ...updatedProduct };
+                    this._saveToLocalStorage();
+                }
+                return this.products[index];
+            }
+
+            deleteProduct(id) {
+                this.products = this.products.filter(p => p.id !== id);
+                this._saveToLocalStorage();
+            }
+
+            getSimilarProducts(category) {
+                return this.products.filter(p => p.category === category).slice(0, 4);
+            }
+
+            _saveToLocalStorage() {
+                localStorage.setItem('products', JSON.stringify(this.products));
+            }
+        }
+
+        // Initialize API and Sample Data
+        const productAPI = new ProductAPI();
+        if(productAPI.getAllProducts().length === 0) {
+            productAPI.addProduct({
+                title: "Men Slim Fit\nPrinted Full\nSleeve",
+                image: "https://via.placeholder.com/220x160",
+                currentPrice: "¥567",
+                originalPrice: "¥4,549",
+                discount: "75% off",
+                delivery: "FREE delivery Tue, 19 Feb",
+                fulfillment: "Fulfilled by FASHION FINDS",
+                minOrder: "Orders over ¥4,549",
+                category: "men-clothing"
+            });
+            // Add more sample products
+
+            productAPI.addProduct({
+                title: "Men Slim Fit\nPrinted Full\nSleeve",
+                image: "https://via.placeholder.com/220x160",
+                currentPrice: "¥567",
+                originalPrice: "¥4,549",
+                discount: "75% off",
+                delivery: "FREE delivery Tue, 19 Feb",
+                fulfillment: "Fulfilled by FASHION FINDS",
+                minOrder: "Orders over ¥4,549",
+                category: "men-clothing"
+            });
+
+            productAPI.addProduct({
+                title: "Men Slim Fit\nPrinted Full\nSleeve",
+                image: "https://via.placeholder.com/220x160",
+                currentPrice: "¥567",
+                originalPrice: "¥4,549",
+                discount: "75% off",
+                delivery: "FREE delivery Tue, 19 Feb",
+                fulfillment: "Fulfilled by FASHION FINDS",
+                minOrder: "Orders over ¥4,549",
+                category: "men-clothing"
+            });
+
+            productAPI.addProduct({
+                title: "Men Slim Fit\nPrinted Full\nSleeve",
+                image: "https://via.placeholder.com/220x160",
+                currentPrice: "¥567",
+                originalPrice: "¥4,549",
+                discount: "75% off",
+                delivery: "FREE delivery Tue, 19 Feb",
+                fulfillment: "Fulfilled by FASHION FINDS",
+                minOrder: "Orders over ¥4,549",
+                category: "men-clothing"
+            });
+
+           
+
+            
+
+
+        }
+
+        // Render Products
+        function renderProducts(products) {
+            const container = document.getElementById('productContainer');
+            container.innerHTML = products.map(product => `
+                <div class="product-card" data-id="${product.id}" onclick="showProductDetail(${product.id})">
+                    <img src="${product.image}" class="product-image" alt="${product.title}">
+                    <h3 class="product-title">${product.title.replace(/\n/g, '<br>')}</h3>
+                    <div class="price-section">
+                        <span class="current-price">${product.currentPrice}</span>
+                        <span class="original-price">${product.originalPrice}</span>
+                        <span class="discount">${product.discount}</span>
+                    </div>
+                    <div class="delivery-info">
+                        ${product.delivery}<br>
+                        ${product.minOrder}
+                    </div>
+                    <div class="fulfillment">
+                        ${product.fulfillment}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show Product Detail Page
+        function showProductDetail(productId) {
+            const product = productAPI.getProduct(productId);
+            const similarProducts = productAPI.getSimilarProducts(product.category);
+            
+            localStorage.setItem('currentProduct', JSON.stringify(product));
+            localStorage.setItem('similarProducts', JSON.stringify(similarProducts));
+            window.location.href = 'product-detail.html';
+        }
+
+        // Initial Render
+        renderProducts(productAPI.getAllProducts());
+
+        // Admin Functions
+        function addNewProduct() {
+            const newProduct = {
+                title: prompt('Enter product title (use \\n for line breaks):'),
+                image: prompt('Enter image URL:'),
+                currentPrice: prompt('Enter current price:'),
+                originalPrice: prompt('Enter original price:'),
+                discount: prompt('Enter discount:'),
+                delivery: prompt('Enter delivery info:'),
+                minOrder: prompt('Enter minimum order:'),
+                category: prompt('Enter product category:')
+            };
+            
+            if(newProduct.title && newProduct.image) {
+                productAPI.addProduct(newProduct);
+                renderProducts(productAPI.getAllProducts());
+            }
+        }
+    </script>
+</body>
+</html>

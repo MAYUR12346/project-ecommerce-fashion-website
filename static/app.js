@@ -1,158 +1,36 @@
-class SpecialHeader extends HTMLElement{
-    connectedCallback(){
-        this.innerHTML =`
-<nav class="top-nav">
-    <div class="nav-container">
-        <div class="logo">FASHION FINDS</div>
-        
-        <div class="nav-icons">
-            <a href="index.html" class="nav-icon-item">
-                <i class="fa fa-home"></i>
-                <span>Home</span>
-            </a>
-        
-            <a href="men.html" class="nav-icon-item">
-                <i class=" fas fa-male men"></i>
-                <div>Men</div>
-            </a>
-            <a href="kids.html" class="nav-icon-item">
-                <i class=" fas fa-child kids"></i>
-                <div>Kids</div>
+//slaider contener
 
-            </a>
-            <a href="women.html" class="nav-icon-item">
-                <i class=" fas fa-female women"></i>
-                <div>Women</div>
-            </a>
-            
-            <a href="Accessories.html" class="nav-icon-item">
-                <i class="fas fa-shopping-bag"></i>
-                <div>Accessories</div>
-            </a>
-            
-            <a href="Jewellery.html" class="nav-icon-item">
-                <i class="fas fa-gem"></i>
-                <span>Jewellery</span>
-            </a>
-            <br>
-            
-        </div>
-        
-        <div class="search-bar d-flex align-items-center">
-            <input type="text" placeholder="Search for products">
-            <button>Search</button>
-        </div>
-        <br>
-
-        <div class="nav-icons">
-            <a href="account.html" class="nav-icon-item">
-                <i class="fas fa-user"></i>
-                <span>Account</span>
-            </a>
-            <a href="wishlist.html" class="nav-icon-item">
-                <i class="fas fa-heart"></i>
-                <span>Wishlist</span>
-            </a>
-            <a href="cart.html" class="nav-icon-item">
-                <i class="fas fa-shopping-bag"></i>
-                <span>Cart</span>
-            </a>
-        </div>
-    </div>
-</nav>
-`
-}
-}
-
-class SpecialFooter extends HTMLElement{
-connectedCallback() {
-    this.innerHTML = `
-    <footer class="main-footer">
-        <div class="footer-container">
-            <!-- Footer Columns -->
-            <div class="footer-column">
-                <h4>Customer Service</h4>
-                <ul>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Size Guide</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Sustainability</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Affiliates</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h4>Connect With Us</h4>
-                <div class="social-links">
-                    <a href="#">Facebook</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">Pinterest</a>
-                </div>
-                
-                <div class="newsletter">
-                    <h4>Newsletter</h4>
-                    <input type="email" placeholder="Enter your email">
-                    <button class="subscribe-btn">SUBSCRIBE</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Copyright -->
-        <div class="copyright">
-            <p>&copy; 2024 WOMFASHION. All rights reserved.</p>
-            <div class="legal-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookie Settings</a>
-            </div>
-        </div>
-    </footer>`
-}
-}
-
-customElements.define('special-header' , SpecialHeader)
-customElements.define('special-footer',SpecialFooter)
-
-
-
-function selectSize(btn) {
-document.querySelectorAll('.size-btn').forEach(button => {
-    button.classList.remove('selected');
-});
-btn.classList.add('selected');
-}
-
-function addToBag() {
-// Add to cart functionality
-alert('Added to bag!');
-}
-
-function saveToWishlist() {
-// Wishlist functionality
-alert('Saved to wishlist!');
-}
-
-// slaider
-
-const sliderRow = document.querySelector('.a-row');
-const slides = document.querySelectorAll('.a-carousel-slide');
+const sliderTrack = document.querySelector('.slider-track');
+const slides = document.querySelectorAll('.slide');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const dotsContainer = document.querySelector('.slider-controls');
 let currentIndex = 0;
-let autoSlideInterval;
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Create dots
+function createDots() {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('slider-dot');
+        if(index === currentIndex) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+}
 
 function updateSlider() {
-    sliderRow.style.transform = `translateX(-${currentIndex * 100}%)`;
+    sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+    document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+    });
+}
+
+function goToSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+    updateSlider();
 }
 
 function nextSlide() {
@@ -165,26 +43,100 @@ function prevSlide() {
     updateSlider();
 }
 
-// Auto-slide every 4 seconds
-function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 4000);
+// Touch handling
+function handleTouchStart(e) {
+    touchStartX = e.touches[0].clientX;
 }
 
-// Manual controls
-document.querySelector('.next-btn').addEventListener('click', () => {
-    clearInterval(autoSlideInterval);
-    nextSlide();
-    startAutoSlide();
+function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].clientX;
+    if(touchStartX - touchEndX > 50) nextSlide();
+    if(touchStartX - touchEndX < -50) prevSlide();
+}
+
+// Initialize
+createDots();
+
+// Event listeners
+nextBtn.addEventListener('click', nextSlide);
+prevBtn.addEventListener('click', prevSlide);
+sliderTrack.addEventListener('touchstart', handleTouchStart, false);
+sliderTrack.addEventListener('touchend', handleTouchEnd, false);
+
+// Responsive handling
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        sliderTrack.style.transition = 'none';
+        updateSlider();
+        setTimeout(() => {
+            sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        }, 10);
+    }, 250);
 });
 
-document.querySelector('.prev-btn').addEventListener('click', () => {
-    clearInterval(autoSlideInterval);
-    prevSlide();
-    startAutoSlide();
+// Auto-play
+let autoPlay = setInterval(nextSlide, 5000);
+sliderTrack.addEventListener('mouseenter', () => clearInterval(autoPlay));
+sliderTrack.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 5000));
+sliderTrack.addEventListener('touchstart', () => clearInterval(autoPlay));
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowLeft') prevSlide();
+    if(e.key === 'ArrowRight') nextSlide();
 });
 
+//cart added item
 
-// Start autoplay
-startAutoSlide();
+//Cart functionality remains the same
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function addToCart(name, price) {
+            cart.push({ 
+                id: Date.now(),
+                name: name, 
+                price: price 
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        
+        // Initialize cart count
+        updateCartCount();
 
 
+    //footer section
+    
+    function handleSubscribe(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('.newsletter-input');
+        const email = emailInput.value;
+        
+        if(validateEmail(email)) {
+            // Add your subscription logic here
+            alert('Thank you for subscribing!');
+            emailInput.value = '';
+        } else {
+            alert('Please enter a valid email address');
+        }
+    }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Add click handlers for social links
+    document.querySelectorAll('.social-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Add your social media tracking/redirect logic here
+            console.log(`Redirecting to: ${this.href}`);
+        });
+    });
