@@ -5,729 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FASHION FINDS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        .nav-container {
-            background: #000000;
-            padding: 15px 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1600px;
-            margin: 0 auto;
-            gap: 20px;
-        }
-
-        .logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            min-width: 120px;
-        }
-
-        .main-nav {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            flex: 1;
-        }
-
-        .nav-item {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .nav-item:hover {
-            background: #333333;
-        }
-
-        .nav-item i {
-            font-size: 16px;
-            color: white;
-        }
-
-        .nav-item span {
-            font-size: 14px;
-        }
-
-        .search-bar {
-            width: 280px; /* Fixed width */
-            position: relative;
-            margin: 0 15px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 25px;
-            border: 1px solid #444444;
-            border-radius: 30px;
-            font-size: 14px;
-            padding-right: 45px;
-            background: #1a1a1a;
-            color: white;
-        }
-
-        .search-input::placeholder {
-            color: #888888;
-        }
-
-        .search-button {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #888888;
-            cursor: pointer;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: #1a1a1a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 6px;
-            min-width: 240px;
-            padding: 12px 0;
-            z-index: 1000;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 12px 20px;
-            color: white;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background: #333333;
-        }
-
-        .dropdown-divider {
-            border-top: 1px solid #444444;
-            margin: 8px 0;
-        }
-
-        @media (max-width: 1024px) {
-            .main-nav {
-                display: none;
-            }
-
-            .search-bar {
-                width: 200px;
-                margin: 0 10px;
-            }
-
-            .nav-item span {
-                display: none;
-            }
-
-            .logo {
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 10px 15px;
-            }
-
-            .search-bar {
-                width: 100%;
-                margin: 0;
-            }
-
-            .nav-actions {
-                gap: 15px;
-            }
-
-            .logo {
-                display: none;
-            }
-        }
-
-        /* slader contener   */
-
-        .responsive-slider {
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
-            background-color: aquamarine;
-        }
-
-        .slider-container {
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            position: relative;
-        }
-
-        .slider-track {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .slider-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 2;
-        }
-
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: #ffffff;
-            transform: scale(1.2);
-        }
-
-        .arrow-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.9);
-            border: none;
-            color: #333;
-            padding: 1.2vw;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .arrow-btn:hover {
-            background: #ffffff;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .prev-btn {
-            left: 2%;
-        }
-
-        .next-btn {
-            right: 2%;
-        }
-
-        /* Mobile First Approach */
-        @media (min-width: 768px) {
-            .slider-container {
-                padding-top: 45%; /* Adjust aspect ratio for tablets */
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .slider-container {
-                padding-top: 35%; /* Adjust aspect ratio for desktops */
-            }
-        }
-
-        @media (max-width: 767px) {
-            .slider-dot {
-                width: 10px;
-                height: 10px;
-            }
-
-            .arrow-btn {
-                padding: 3vw;
-                font-size: 3vw;
-            }
-
-            .slider-controls {
-                bottom: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .slider-container {
-                padding-top: 75%; /* Taller aspect ratio for mobile */
-            }
-
-            .arrow-btn {
-                padding: 4vw;
-                font-size: 4vw;
-            }
-        }
-
-
-
-        /* 1st contener code */
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .card {
-            flex: 1 1 200px;
-            min-width: 200px;
-            max-width: 280px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 280px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .brand-name {
-            color: #333;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .offer-text {
-            color: #ff6b6b;
-            font-weight: bold;
-            font-size: 1rem;
-            margin: 10px 0;
-        }
-
-        .view-btn {
-            display: inline-block;
-            padding: 8px 20px;
-            background: #2d3436;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
-
-        .view-btn:hover {
-            background: #404a4d;
-        }
-
-        @media (max-width: 1200px) {
-            .card {
-                flex: 1 1 180px;
-                min-width: 180px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .card {
-                flex: 1 1 220px;
-                max-width: 240px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                flex: 1 1 200px;
-                max-width: 300px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .card {
-                flex: 1 1 100%;
-                max-width: 400px;
-            }
-        }
-
-
-        /* 2nd container */
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-            justify-content: center;
-        }
-
-        .product-card {
-            width: 300px;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: #f5f5f5;
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
-
-        .product-title {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .price-section {
-            margin-bottom: 15px;
-        }
-
-        .current-price {
-            color: #ff4444;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: #666;
-            margin-left: 10px;
-        }
-
-        .discount {
-            color: #00c853;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .add-to-cart {
-            width: 100%;
-            padding: 12px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .add-to-cart:hover {
-            background: #0056b3;
-        }
-
-        .cart-section {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 1000;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .product-card {
-                width: 45%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product-card {
-                width: 100%;
-            }
-            .cart-section {
-                position: static;
-                width: 100%;
-                margin: 20px;
-            }
-        }
-
-        /* footer section */
-
-        main {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .site-footer {
-            background: #2d3436;
-            color: white;
-            padding: 40px 0 0;
-            margin-top: auto;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .footer-section {
-            margin-bottom: 30px;
-        }
-
-        .footer-section h4 {
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #dfe6e9;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #007bff;
-        }
-
-        .social-media {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .social-link {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        .social-link:hover {
-            color: #007bff;
-            transform: translateY(-2px);
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .newsletter-input {
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .subscribe-btn {
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .subscribe-btn:hover {
-            background: #0056b3;
-        }
-
-        .footer-bottom {
-            background: #1a1a1a;
-            padding: 20px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            margin-bottom: 10px;
-        }
-
-        .payment-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 1.8rem;
-        }
-
-        @media (max-width: 768px) {
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .social-media {
-                justify-content: center;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .subscribe-btn {
-                justify-content: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    
 </head>
 <body>
-    <div class="nav-container">
-        <nav class="navbar">
-            <div class="logo">FASHION FINDS</div>
-            
-            <div class="main-nav">
-                <div class="nav-item">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
+    <body>
+        <div class="nav-container">
+            <nav class="navbar">
+                <div class="logo">FASHION FINDS</div>
+                <div class="main-nav">
+                    <a href="index.html" class="nav-item active">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="men.html" class="nav-item">
+                        <i class="fas fa-male"></i>
+                        <span>Men</span>
+                    </a>
+                    <a href="kids.html" class="nav-item">
+                        <i class="fas fa-child"></i>
+                        <span>Kids</span>
+                    </a>
+                    <a href="women.html" class="nav-item">
+                        <i class="fas fa-female"></i>
+                        <span>Women</span>
+                    </a>
+                    <a href="Accessories.html" class="nav-item">
+                        <i class="fas fa-bag-shopping"></i>
+                        <span>Accessories</span>
+                    </a>
+                    <a href="Shoes.html" class="nav-item">
+                        <i class="fas fa-shoe-prints"></i>
+                        <span>Shoes</span>
+                    </a>
                 </div>
-                <div class="nav-item">
-                    <i class="fas fa-male"></i>
-                    <span>Men</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-child"></i>
-                    <span>Kids</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-female"></i>
-                    <span>Women</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-bag-shopping"></i>
-                    <span>Accessories</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-shoe-prints"></i>
-                    <span>Shoes</span>
-                </div>
-            </div>
-
-            <div class="search-bar">
-                <input type="text" placeholder="Search products, brands, and more..." class="search-input">
-                <button class="search-button"><i class="fas fa-search"></i></button>
-            </div>
-
-            <div class="nav-actions">
-                <div class="nav-item">
-                    <i class="far fa-heart"></i>
-                    <span>Wishlist</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart</span>
-                </div>
-                <div class="dropdown">
-                    <div class="nav-item">
-                        <i class="far fa-user"></i>
-                        <span>Account</span>
-                    </div>
-                    <div class="dropdown-content">
-                        <div class="dropdown-item">Your Lists</div>
-                        <div class="dropdown-item">Create a Wish List</div>
-                        <div class="dropdown-item">Wish from Any Website</div>
-                        <div class="dropdown-item">Baby Wishlist</div>
-                        <div class="dropdown-divider"></div>
-                        <div class="dropdown-item">Discover Your Style</div>
-                        <div class="dropdown-item">Explore Showroom</div>
-                        <div class="dropdown-divider"></div>
-                        <div class="dropdown-item">Your Account</div>
-                        <div class="dropdown-item">Your Orders</div>
-                        <div class="dropdown-item">Your Wish List</div>
-                        <div class="dropdown-item">Your Recommendations</div>
-                        <div class="dropdown-divider"></div>
-                        <div class="dropdown-item">Manage Your Content</div>
-                        <div class="dropdown-item">Register Business Account</div>
+    
+                <div class="search-bar d-flex align-items-center">
+                    <div class="search-container">
+                        <div class="search-bar">
+                            <input type="text" 
+                                   class="search-input" 
+                                   placeholder="Search products, brands, and categories...">
+                            <button class="search-button">
+                                <svg class="search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </div>
+    
+                <div class="nav-actions">
+                    <a href="wishlist.html" class="nav-item">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </a>
+                    <a href="cart.html" class="nav-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Cart</span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="account.html" class="nav-item">
+                            <i class="far fa-user"></i>
+                            <span>Account</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="/your-lists" class="dropdown-item">Your Lists</a>
+                            <a href="/create-wishlist" class="dropdown-item">Create a Wish List</a>
+                            <a href="/external-wishlist" class="dropdown-item">Wish from Any Website</a>
+                            <a href="/baby-wishlist" class="dropdown-item">Baby Wishlist</a>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">Discover Your Style</div>
+                            <div class="dropdown-item">Explore Showroom</div>
+                            <div class="dropdown-divider"></div>
+                            <a href="/account" class="dropdown-item">Your Account</a>
+                            <a href="/orders" class="dropdown-item">Your Orders</a>
+                            <a href="/wishlist" class="dropdown-item">Your Wish List</a>
+                            <a href="/recommendations" class="dropdown-item">Your Recommendations</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/manage-content" class="dropdown-item">Manage Your Content</a>
+                            <a href="/business-account" class="dropdown-item">Register Business Account</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </body>
 
 
     <!-- slader containers     -->
@@ -821,72 +184,84 @@
 
 <!-- 2nd contener -->
 
-<div class="container">
-    <!-- Product Card 1 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="{{url_for('static',filename='images/contenar img4.png')}}" alt="Men Shirt" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <h3 class="product-title">Men Slim Fit Printed Full Sieve</h3>
-        <div class="price-section">
-            <span class="current-price">₹749</span>
-            <span class="original-price">₹3999</span>
-            <span class="discount">42% off</span>
-        </div>
-        <button class="add-to-cart" onclick="addToCart('Men Shirt', 15)">Add to Cart</button>
-    </div>
+<div class="container" id="product-list">
+    <!-- Product Cards will be injected here dynamically -->
+</div>
 
-    <!-- Product Card 2 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="{{url_for('static',filename='images/contenar img5.png')}}" alt="Formal Set" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <h3 class="product-title">Hopscotch Boys Cotton Blend Formal Set</h3>
-        <div class="price-section">
-            <span class="current-price">₹1009</span>
-            <span class="original-price">₹12009</span>
-            <span class="discount">60% off</span>
-        </div>
-        <button class="add-to-cart" onclick="addToCart('Formal Set', 14)">Add to Cart</button>
-    </div>
+<!-- Wishlist Tab -->
+<div class="wishlist-tab" id="wishlist-tab">
+    <h2>Wishlist</h2>
+    <div id="wishlist-items"></div>
+    <button class="close-btn" onclick="toggleWishlist()">Close</button>
+</div>
 
-    <div class="product-card">
-        <div class="product-image">
-            <img src="{{url_for('static',filename='images/contenar img6.png')}}" alt="Formal Set" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <h3 class="product-title">Hopscotch Boys Cotton Blend Formal Set</h3>
-        <div class="price-section">
-            <span class="current-price">₹1009</span>
-            <span class="original-price">₹12009</span>
-            <span class="discount">60% off</span>
-        </div>
-        <button class="add-to-cart" onclick="addToCart('Formal Set', 13)">Add to Cart</button>
-    </div>
 
+
+<!-- card 3 section -->
+<div class="product-container">
+    <!-- Repeated 5 times -->
+    <a href="product1.html" class="product-card">
+        <img src="{{url_for('static',filename='images/contenar img16.png')}}" alt="Wireless Headphones" class="product-image">
+        <div class="discount-badge">20% OFF</div>
+        <div class="product-info">
+            <h3 class="product-title">Wireless Bluetooth Headphones</h3>
+            <div class="price-container">
+                <span class="discounted-price">$59.99</span>
+                <span class="original-price">$74.99</span>
+            </div>
+            <p class="delivery-message">Free Next-Day Delivery</p>
+        </div>
+    </a>
+    <a href="product2.html" class="product-card">
+        <img src="{{url_for('static',filename='images/contenar img15.png')}}" alt="Smart Watch" class="product-image">
+        <div class="discount-badge">30% OFF</div>
+        <div class="product-info">
+            <h3 class="product-title">Smart Watch Fitness Tracker</h3>
+            <div class="price-container">
+                <span class="discounted-price">$139.30</span>
+                <span class="original-price">$199.00</span>
+            </div>
+            <p class="delivery-message">Free 2-Day Delivery</p>
+        </div>
+    </a>
+    <a href="product3.html" class="product-card">
+        <img src="{{url_for('static',filename='images/contenar img14.png')}}" alt="Running Shoes" class="product-image">
+        <div class="discount-badge">25% OFF</div>
+        <div class="product-info">
+            <h3 class="product-title">Men's Running Sports Shoes</h3>
+            <div class="price-container">
+                <span class="discounted-price">$67.50</span>
+                <span class="original-price">$90.00</span>
+            </div>
+            <p class="delivery-message">Standard Delivery</p>
+        </div>
+    </a>
+    <a href="product4.html" class="product-card">
+        <img src="{{url_for('static',filename='images/contenar img12.png')}}" alt="Bluetooth Speaker" class="product-image">
+        <div class="discount-badge">15% OFF</div>
+        <div class="product-info">
+            <h3 class="product-title">Portable Bluetooth Speaker</h3>
+            <div class="price-container">
+                <span class="discounted-price">$84.15</span>
+                <span class="original-price">$99.00</span>
+            </div>
+            <p class="delivery-message">Express Delivery Available</p>
+        </div>
+    </a>
+    <a href="product5.html" class="product-card">
+        <img src="{{url_for('static',filename='images/contenar img13.png')}}" alt="Gaming Mouse" class="product-image">
+        <div class="discount-badge">10% OFF</div>
+        <div class="product-info">
+            <h3 class="product-title">Wireless Gaming Mouse</h3>
+            <div class="price-container">
+                <span class="discounted-price">$45.00</span>
+                <span class="original-price">$50.00</span>
+            </div>
+            <p class="delivery-message">Same-Day Delivery Available</p>
+        </div>
+    </a>
+</div>
     
-
-    <!-- Product Card 3 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="{{url_for('static',filename='images/contenar img7.png')}}" alt="Track Suit" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <h3 class="product-title">Boys Cotton Track Suit</h3>
-        <div class="price-section">
-            <span class="current-price">₹809</span>
-            <span class="original-price">₹3099</span>
-            <span class="discount">60% off</span>
-        </div>
-        <button class="add-to-cart" onclick="addToCart('Track Suit', 12)">Add to Cart</button>
-    </div>
-</div>
-
-<!-- Cart Section -->
-<div class="cart-section">
-    <h2>Shopping Cart (<span id="cartCount">0</span>)</h2>
-    <div id="cartItems"></div>
-    <p>Total: ¥<span id="cartTotal">0</span></p>
-</div>
-
 
 <!-- <footer> section -->
 

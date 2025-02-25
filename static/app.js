@@ -88,28 +88,97 @@ document.addEventListener('keydown', (e) => {
     if(e.key === 'ArrowRight') nextSlide();
 });
 
-//cart added item
+//contenar 3
 
-//Cart functionality remains the same
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        function addToCart(name, price) {
-            cart.push({ 
-                id: Date.now(),
-                name: name, 
-                price: price 
-            });
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
+      // Sample product data
+      const products = [
+        { id: 1, name: "Product 1", img: "/static/images/contenar img4.png", price: "₹1500", offerPrice: "₹999" },
+        { id: 2, name: "Product 2", img: "/static/images/contenar img5.png", price: "₹1200", offerPrice: "₹799" },
+        { id: 3, name: "Product 3", img: "/static/images/contenar img6.png", price: "₹1000", offerPrice: "₹699" },
+        { id: 4, name: "Product 4", img: "/static/images/contenar img7.png", price: "₹2000", offerPrice: "₹1299" },
+        { id: 5, name: "Product 5", img: "/static/images/contenar img8.png", price: "₹1800", offerPrice: "₹1199" }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const wishlistTab = document.getElementById("wishlist-tab");
+    let wishlist = [];
+
+    // Function to render products
+    function renderProducts() {
+        products.forEach(product => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">${product.price}</p>
+                <p class="offer-price">${product.offerPrice}</p>
+                <div class="rating" data-id="${product.id}">
+                    ★★★★★
+                </div>
+                <button class="wishlist-btn" onclick="addToWishlist(${product.id})">Add to Wishlist</button>
+            `;
+            productList.appendChild(card);
+            setupRating(card.querySelector(".rating"), product.id);
+        });
+    }
+
+    // Wishlist Function
+    function addToWishlist(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!wishlist.some(item => item.id === productId)) {
+            wishlist.push(product);
+            renderWishlist();
+            toggleWishlist(true);
         }
+    }
 
-        function updateCartCount() {
-            document.getElementById('cartCount').textContent = cart.length;
-        }
-        
-        // Initialize cart count
-        updateCartCount();
+    // Toggle Wishlist Tab
+    function toggleWishlist(forceOpen = false) {
+        wishlistTab.classList.toggle("open", forceOpen);
+        if (!forceOpen) wishlist = [];
+    }
 
+    // Render Wishlist Items
+    function renderWishlist() {
+        const wishlistItems = document.getElementById("wishlist-items");
+        wishlistItems.innerHTML = "";
+        wishlist.forEach(item => {
+            const div = document.createElement("div");
+            div.classList.add("wishlist-item");
+            div.innerHTML = `<img src="${item.img}" alt="${item.name}"><p>${item.name}</p>`;
+            wishlistItems.appendChild(div);
+        });
+    }
+
+    // Star Rating Setup
+    function setupRating(element, productId) {
+        element.innerHTML = "★".repeat(5).split("").map((star, i) => 
+            `<span class="star" data-index="${i}" data-id="${productId}">${star}</span>`).join("");
+
+        element.addEventListener("click", (e) => {
+            if (e.target.classList.contains("star")) {
+                let rating = e.target.dataset.index;
+                saveRating(productId, rating);
+                highlightStars(element, rating);
+            }
+        });
+    }
+
+    // Save Rating to Local Storage
+    function saveRating(productId, rating) {
+        localStorage.setItem(`rating-${productId}`, rating);
+    }
+
+    // Highlight Stars Based on Rating
+    function highlightStars(element, rating) {
+        const stars = element.querySelectorAll(".star");
+        stars.forEach((star, i) => {
+            star.style.color = i <= rating ? "gold" : "lightgray";
+        });
+    }
+
+    renderProducts();
 
     //footer section
     
@@ -140,3 +209,7 @@ document.addEventListener('keydown', (e) => {
             console.log(`Redirecting to: ${this.href}`);
         });
     });
+
+
+
+    
