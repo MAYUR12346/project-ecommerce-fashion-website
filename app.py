@@ -1,9 +1,18 @@
-from flask import Flask, render_template, jsonify, send_from_directory
-
+from flask import Flask, render_template, send_from_directory
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///product.db'
 
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    sno = db.Column(db.Integer , primary_key = True)
+    username = db.Column(db.String(200), nullable = False)
+
+with app.app_context():
+    db.create_all()
 
 @app.route("/")
 def index():
@@ -42,13 +51,9 @@ def cart():
 def Account():
     return render_template('Account.html')
 
-@app.route('/products')
-def products():
-    return render_template('products.html')
-
-@app.route('/productdetail')
-def productdetail():
-    return render_template('product detail.html')  
+@app.route('/Base')
+def Base():
+    return render_template('Base.html')
 
 
 
